@@ -4,6 +4,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { ThemeProvider } from './ThemeProvider';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -13,7 +14,12 @@ export default function Providers({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <ThemeProvider
+        defaultTheme="light"
+        storageKey="vite-ui-theme"
+      >
+        {children}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

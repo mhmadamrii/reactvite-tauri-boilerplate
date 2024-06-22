@@ -1,8 +1,11 @@
-import { useRouteError, useNavigate } from 'react-router-dom';
+import {
+  useRouteError,
+  useNavigate,
+} from 'react-router-dom';
 import { Button } from './ui/button';
 
 export default function ErrorBoundary() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const error: any = useRouteError();
   console.error(error);
 

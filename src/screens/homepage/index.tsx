@@ -1,1 +1,1 @@
-export { default } from './screen';
+export { default as Homepage } from './Homepage';

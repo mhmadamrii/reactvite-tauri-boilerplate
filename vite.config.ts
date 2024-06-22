@@ -1,14 +1,20 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import * as path from 'path';
+import react from '@vitejs/plugin-react';
+
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/__tests__/setup',
+  },
   resolve: {
     alias: [
       {
-        find: '@',
+        find: '~',
         replacement: path.resolve(__dirname, 'src'),
       },
     ],

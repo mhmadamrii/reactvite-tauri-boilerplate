@@ -1,50 +1,36 @@
-import ErrorBoundary from './components/ErorBoundary';
-import Providers from './components/Providers';
+import { Link, Route, Routes } from 'react-router-dom';
+import { Homepage } from './screens/homepage';
+import { Post, PostLayout } from './screens/post';
+import { DetailPost } from './screens/post';
+import { ThemeMode } from './components/ThemeMode';
+
 import './index.css';
-
-import Homepage from './screens/homepage';
-import { PostScreen } from './screens/post';
-import Profile from './screens/profile';
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
-const routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <Homepage />,
-    errorElement: <ErrorBoundary />,
-  },
-  {
-    path: '/profiles',
-    element: <Profile />,
-    errorElement: <ErrorBoundary />,
-    children: [
-      {
-        path: '/profiles/:profileId',
-        element: <Profile />,
-      },
-    ],
-  },
-  {
-    path: '/posts',
-    element: <PostScreen />,
-    children: [
-      {
-        path: '/posts/:postId',
-        element: <Profile />,
-      },
-    ],
-  },
-]);
 
 function App() {
   return (
-    <Providers>
-      <RouterProvider router={routes} />
-    </Providers>
+    <>
+      <nav>
+        <Link className="block" to="/">
+          Home page
+        </Link>
+        <Link className="block" to="/posts">
+          Post page
+        </Link>
+      </nav>
+      <ThemeMode />
+
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/posts" element={<PostLayout />}>
+          <Route index element={<Post />} />
+          <Route path=":post-id" element={<DetailPost />} />
+        </Route>
+        <Route
+          path="/*"
+          element={<span>Not found...</span>}
+        />
+      </Routes>
+    </>
   );
 }
 

@@ -1,75 +1,46 @@
-import { useEffect } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { Store } from 'tauri-plugin-store-api';
 import { Button } from '~/components/ui/button';
-import {
-  useCounterStore,
-  useUserAuthStore,
-} from '~/lib/store/store';
-
-const logger = () => {
-  const count = useCounterStore.getState().count;
-  return count;
-};
-
-const addOutsideComponent = () => {
-  useCounterStore.setState({ count: 499 });
-};
 
 export default function Homepage() {
-  // best practices
-  const { count: countBestPractice } = useCounterStore(
-    (state) => state,
-  );
-  const { user, setUser, removeUser } = useUserAuthStore(
-    (state) => state,
-  );
-  console.log('count best practice', countBestPractice);
+  const store = new Store('.settings.dat');
+  const [name, setName] = useState<string>('');
+  const [storedName, setStoredName] = useState<
+    string | { value: string }
+  >('');
 
-  // not best practices
-  const count = useCounterStore((state) => state.count);
-  console.log('count not best practice', count);
-
-  const increment = useCounterStore(
-    (state) => state.increment,
-  );
-  const decrement = useCounterStore(
-    (state) => state.decrement,
-  );
-
-  const saveUserToStore = () => {
-    setUser({ name: 'John' });
+  const handleSetTauriStore = async () => {
+    await store.set('user', name);
+    await store.save();
   };
 
-  const removeUserFromStore = () => {
-    console.log('removing');
-    removeUser();
+  const handleGetTauriStore = async () => {
+    const val = await store.get<{ value: string }>('user');
+    console.log('value tauri store', val);
+    if (val) {
+      setStoredName(val);
+    } else {
+      setStoredName('Nothing');
+    }
+    console.log(storedName);
   };
-
-  useEffect(() => {
-    addOutsideComponent();
-    console.log(
-      'from function that can be called outside component',
-      logger(),
-    );
-  }, []);
 
   return (
     <main>
-      <h1>{count}</h1>
-      <Button onClick={increment}>Increment</Button>
-      <Button onClick={decrement}>Ddecrement</Button>
-      <Button onClick={saveUserToStore}>
-        Save user perist
+      <h1>Your stored name is: {storedName.toString()}</h1>
+      <input
+        className="text-black"
+        name="name"
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setName(e.target.value)
+        }
+      />
+      <Button onClick={handleSetTauriStore}>
+        Set tauri store
       </Button>
-      <Button onClick={removeUserFromStore}>
-        Remove user
+      <Button onClick={handleGetTauriStore}>
+        Get tauri store
       </Button>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing
-        elit. Aliquid eum sint ipsam libero ea totam
-        pariatur minima praesentium, labore vel error
-        voluptatibus reiciendis sequi et neque earum
-        sapiente? Iure, vero!
-      </p>
     </main>
   );
 }

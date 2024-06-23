@@ -12,7 +12,7 @@ interface IPost {
   body: string;
 }
 
-const getPosts = async ({
+const getPostsAction = async ({
   limit,
 }: {
   limit: number;
@@ -28,4 +28,4 @@ const getPosts = async ({
   }
 };
 
-export { getPosts };
+export { getPostsAction };

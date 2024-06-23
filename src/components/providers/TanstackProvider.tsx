@@ -4,9 +4,11 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
-import { ThemeProvider } from './ThemeProvider';
 
-// Create a client
+import { ThemeProvider } from './ThemeProvider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+// Create a query client
 const queryClient = new QueryClient();
 
 export default function Providers({
@@ -20,6 +22,7 @@ export default function Providers({
       >
         {children}
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 }

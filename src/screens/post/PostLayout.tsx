@@ -3,8 +3,8 @@ import Testing from './Testing';
 
 export default function PostLayout() {
   return (
-    <section>
-      <h1>Hello world</h1>
+    <section className='border borde-white'>
+      <h1>This is layout component</h1>
       <Testing name="John" />
       <Outlet />
     </section>

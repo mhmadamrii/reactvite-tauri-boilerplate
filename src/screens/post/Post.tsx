@@ -14,7 +14,7 @@ export default function Post() {
   if (posts.isLoading) return <span>Loading data...</span>;
 
   return (
-    <main className='container mx-auto border border-red-500'>
+    <main className="container mx-auto border border-red-500">
       <input
         name="limit"
         onChange={(e) => setLimit(parseInt(e.target.value))}

@@ -8,7 +8,7 @@ describe('Homepage rendering process', () => {
     screen.debug();
   });
 
-  it('should render without crashing', () => {
+  it('should render without crashing ', () => {
     const { container } = render(<Homepage />);
     expect(container).toBeInTheDocument();
   });

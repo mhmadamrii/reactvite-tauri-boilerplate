@@ -9,7 +9,7 @@ import './index.css';
 function App() {
   return (
     <>
-      <nav className='container mx-auto'>
+      <nav className="container mx-auto">
         <Link className="block" to="/">
           Home page
         </Link>

@@ -5,7 +5,7 @@ export default function Authentication() {
   return (
     <main className="flex h-screen w-full flex-col items-center justify-center">
       <AuthNavigationBar />
-      <div className="flex h-full w-full flex-col items-center justify-start mt-[100px] gap-16 sm:w-[600px]">
+      <div className="mt-[100px] flex h-full w-full flex-col items-center justify-start gap-16 sm:w-[600px]">
         <svg
           id="logo-87"
           width="202"

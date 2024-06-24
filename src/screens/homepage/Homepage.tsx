@@ -16,7 +16,6 @@ export default function Homepage() {
 
   const handleGetTauriStore = async () => {
     const val = await store.get<{ value: string }>('user');
-    console.log('value tauri store', val);
     if (val) {
       setStoredName(val);
     } else {
